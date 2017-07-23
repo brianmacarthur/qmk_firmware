@@ -9,14 +9,14 @@
 Because of the relative compression of the right half of the keyboard, some punctuation from the upper rows was relocated in order to maintain availability of those symbols in the default layer. Key differences between this layout and the Pok3r include:
 
 - `SPACE` and `ENTER` on the right thumb cluster
-- `-` and `=` on the left thumb cluster
+- `` and `=` on the left thumb cluster
 - space cadet `SHIFT` for ease of parenthetical statements
 - `BRACKETS` and `BRACES` to the bottom row on each side
 
 Some other differences:
 
 - `ESC` is in the upper right of the left keyboard
-- ``` is in the upper left of the left keyboard
+- `BACKTICK` is in the upper left of the left keyboard
 - there is no bottom row `Fn1` key
 - `SLEEP/WAKE` on the right thumb cluster
 - `PRTSC` and `CAPS` on the left thumb cluster
