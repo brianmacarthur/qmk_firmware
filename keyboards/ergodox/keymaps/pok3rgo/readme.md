@@ -1,6 +1,6 @@
 # Pok3rgoDox Layout
 
-[This layout](http://configure.ergodox-ez.com/keyboard_layouts/qlooxw/edit) was created to leverage familiarity with the default Pok3r layout during the transition to ErgoDox. Similarities between this keymap and the Pok3r include:
+[This layout](http://configure.ergodox-ez.com/keyboard_layouts/kywjma/edit) was created to leverage familiarity with the default Pok3r layout during the transition to ErgoDox. Similarities between this keymap and the Pok3r include:
 
 - `IJKL` direction keys on layer 1
 - `SDF` media volume keys on layer 1
