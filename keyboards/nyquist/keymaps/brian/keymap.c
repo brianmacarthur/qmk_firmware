@@ -11,15 +11,17 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _COLEMAK 1
 #define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _FN1 5
+#define _GAMER 3
+#define _LOWER 4
+#define _RAISE 5
+#define _FN1 6
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
+  GAMER,
   LOWER,
   RAISE,
   FN1,
@@ -95,6 +97,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LGUI, KC_LALT, ADJUST,  LOWER,   KC_LSFT, KC_SPC,  RAISE,   ADJUST,  KC_RALT, KC_RGUI, KC_RCTL \
 ),
 
+/* Gamer
+ * ,-----------------------------------------------------------------------------------.
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Fn1  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | GUI  | Alt  |Adjust|Lower |Shift |Space |Raise |Adjust| Alt  | GUI  | Ctrl |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAMER] = KEYMAP( \
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
+  KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_M,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
+  KC_LCTL, KC_LGUI, KC_LALT, ADJUST,  KC_SPC,  KC_LCTL, KC_SPC,  RAISE,   ADJUST,  KC_RALT, KC_RGUI, KC_RCTL \
+),
+
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
@@ -164,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |Qwerty|      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |Dvorak|      |Aud on|Audoff|AGnorm|AGswap|      |      |      |      |PrScrn|
+ * |      |Dvorak|      |Aud on|Aud of|Gamer |AGnorm|AGswap|      |      |      |PrScrn|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Colmak|      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -174,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  KEYMAP( \
   RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, QWERTY,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, DVORAK,  _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, KC_PSCR, \
+  _______, DVORAK,  _______, AU_ON,   AU_OFF,  GAMER,   AG_NORM, AG_SWAP, _______, _______, _______, KC_PSCR, \
   _______, COLEMAK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
@@ -219,6 +242,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
         #endif
         persistent_default_layer_set(1UL<<_DVORAK);
+      }
+      return false;
+      break;
+    case GAMER:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+        #endif
+        persistent_default_layer_set(1UL<<_GAMER);
       }
       return false;
       break;
