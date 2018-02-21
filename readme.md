@@ -1,3 +1,6 @@
+### Installation Quick Start
+Nyquist: `sudo make nyquist-brian-avrdude`
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
