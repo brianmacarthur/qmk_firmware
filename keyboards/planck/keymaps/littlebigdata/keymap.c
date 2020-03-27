@@ -22,7 +22,7 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
-  _COLEMAK,
+  _GAMER,
   _DVORAK,
   _LOWER,
   _RAISE,
@@ -33,11 +33,12 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
+  GAMER,
   DVORAK,
   PLOVER,
   LOWER,
   RAISE,
+  ADJUST,
   BACKLIT,
   EXT_PLV,
   FUNCTION
@@ -45,6 +46,7 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 
 #define CALTDEL LCTL(LALT(KC_DEL))
 
@@ -122,22 +124,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Colemak
+/* Gamer
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   7  |   8  |   9  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Func |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * | Raise|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   4  |   5  |   6  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   1  |   2  |   3  |  =   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | GUI  | Alt  | Esc  |Lower |Shift |Space |Raise | Esc  | Alt  | GUI  | Ctrl |
+ * | Ctrl |   -  |   Z  | Esc  |Space |   M  |Lower |Raise |   0  | Alt  | GUI  | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = LAYOUT_planck_grid(
-  _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-  _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______,
-  _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ // GRID: 1U dedicated shift and space keys
+[_GAMER] = LAYOUT_planck_grid(
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_7,    KC_8,    KC_9,    KC_BSPC,
+  RAISE,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_4,    KC_5,    KC_6,    KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_1,    KC_2,    KC_3,    KC_EQUAL,
+  KC_LCTL, KC_MINUS,KC_Z,    KC_ESC,  KC_SPACE,KC_M,    LOWER,   RAISE,   KC_0,    KC_DOWN, KC_UP,   KC_RGHT // GRID: 1U dedicated shift and space keys
 ),
 
 /* Dvorak
@@ -181,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |                     RGB Controls                      |  Ctl-Alt-Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Gamer |Dvorak|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Caps |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      | Caps |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -190,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid(
   RESET,   RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, CALTDEL,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  GAMER, DVORAK,  PLOVER,  _______,
   KC_CAPS, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, RGB_M_B, RGB_M_R, _______, KC_CAPS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
@@ -214,9 +216,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case COLEMAK:
+    case GAMER:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        set_single_persistent_default_layer(_GAMER);
       }
       return false;
       break;
