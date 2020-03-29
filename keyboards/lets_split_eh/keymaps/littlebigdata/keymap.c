@@ -9,7 +9,7 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-
+#define _GAMER 1
 #define _LOWER 3
 #define _RAISE 4
 #define _FUNCTION 15
@@ -22,6 +22,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
+  GAMER,
   ADJUST
 };
 
@@ -89,11 +90,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, LDESK,   _______, _______, RDESK\
 ),
 
+/* Gamer
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   7  |   8  |   9  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Raise|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   4  |   5  |   6  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   1  |   2  |   3  |  =   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl |   -  |   Z  | Esc  |Space |   M  |Lower |Raise |   0  | Alt  | GUI  | Ctrl |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAMER] = LAYOUT( \
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_7,    KC_8,    KC_9,    KC_BSPC, \
+  RAISE,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_4,    KC_5,    KC_6,    KC_QUOT, \
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_1,    KC_2,    KC_3,    KC_EQUAL, \
+  KC_LCTL, KC_MINUS,KC_Z,    KC_ESC,  KC_SPACE,KC_M,    LOWER,   RAISE,   KC_0,    KC_DOWN, KC_UP,   KC_RGHT\
+),
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * | RESET| DEBUG|      |      |      |      |      |      |RGBVAI|RGBSAI|RGBHUI|caltde|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |Qwerty|RGBVAD|RGBSAD|RGBHUD|RGBTOG|
+ * |      |      |      |      |      |Gamer |      |Qwerty|RGBVAD|RGBSAD|RGBHUD|RGBTOG|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |BLSTEP|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -102,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT( \
   RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, RGB_VAI, RGB_SAI, RGB_HUI, CALTDEL, \
-  _______, _______, _______, _______, _______, _______, _______, QWERTY,  RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
+  _______, _______, _______, _______, GAMER,   _______, _______, QWERTY,  RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_STEP, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______    \
 ),
@@ -137,6 +156,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+    case GAMER:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_GAMER);
       }
       return false;
       break;
